@@ -55,19 +55,19 @@ class TwitterBot:
                 scroll += 500
                         
             
-            tweets = bot.find_elements_by_class_name('tweet')
-            #print(tweets)
-            links = [elem.get_attribute('data-permalink-path')
-                     for elem in tweets]
+            # tweets = bot.find_elements_by_class_name('tweet')
+            # #print(tweets)
+            # links = [elem.get_attribute('data-permalink-path')
+            #          for elem in tweets]
             
-            for link in links:
-                bot.get('https://twitter.com'+link)
-                print(link +' visiting...')
-                try:
-                    bot.find_element_by_class_name('HeartAnimation').click()
-                    time.sleep(5)
-                except Exception as ex:
-                    time.sleep(60)
+            # for link in links:
+            #     bot.get('https://twitter.com'+link)
+            #     print(link +' visiting...')
+            #     try:
+            #         bot.find_element_by_class_name('HeartAnimation').click()
+            #         time.sleep(5)
+            #     except Exception as ex:
+            #         time.sleep(60)
             
             
             
