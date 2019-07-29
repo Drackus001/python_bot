@@ -53,7 +53,26 @@ class TwitterBot:
                     scroll)+"}, 800)})"
                 bot.execute_script(script)
                 scroll += 500
+                        
             
+            tweets = bot.find_elements_by_class_name('tweet')
+            #print(tweets)
+            links = [elem.get_attribute('data-permalink-path')
+                     for elem in tweets]
+            
+            for link in links:
+                bot.get('https://twitter.com'+link)
+                print(link +' visiting...')
+                try:
+                    bot.find_element_by_class_name('HeartAnimation').click()
+                    time.sleep(5)
+                except Exception as ex:
+                    time.sleep(60)
+            
+            
+            
+            # dynamic code stays here...
+
             # Tweet
             # css-4rbku5 css-18t94o4 css-901oao r-1re7ezh r-1loqt21 r-1q142lx r-1qd0xha r-a023e6 r-16dba41 r-ad9z0x r-bcqeeo r-3s2u2q r-qvutc0
             # css-4rbku5 css-18t94o4 css-901oao r-1re7ezh r-1loqt21 r-1q142lx r-1qd0xha r-a023e6 r-16dba41 r-ad9z0x r-bcqeeo r-3s2u2q r-qvutc0
@@ -65,36 +84,31 @@ class TwitterBot:
             # css-18t94o4 css-1dbjc4n r-1777fci r-11cpok1 r-1ny4l3l r-bztko3 r-lrvibr
             # r-bztko3
             
-            tweets = bot.find_elements_by_class_name('tweet')
-            #tweets = bot.find_elements_by_class_name()
-            #tweets = bot.find_elements_by_class_name('css-4rbku5 css-18t94o4 css-901oao r-1re7ezh r-1loqt21 r-1q142lx r-1qd0xha r-a023e6 r-16dba41 r-ad9z0x r-bcqeeo r-3s2u2q r-qvutc0')
             #tweets = bot.find_elements_by_xpath("//div[@class='css-4rbku5 css-18t94o4 css-901oao r-1re7ezh r-1loqt21 r-1q142lx r-1qd0xha r-a023e6 r-16dba41 r-ad9z0x r-bcqeeo r-3s2u2q r-qvutc0']")
             
-            #print(tweets)
-            links = [elem.get_attribute('data-permalink-path')
-                     for elem in tweets]
-            # links = [elem.get_attribute('href')
-            #         for elem in tweets]
+            tweets = bot.find_elements_by_class_name('r-1q142lx')           
+            print(tweets)
+            
+            links = [elem.get_attribute('href')
+                    for elem in tweets]
             print(links)
             for link in links:
-                bot.get('https://twitter.com'+link)
-                print(link + 'visiting...')
-            #     if(link != None):
-            #         bot.get(link)
-            #         print('link visited')
-                try:
-                    bot.find_element_by_class_name('HeartAnimation').click()
-            #             clickable = bot.find_elements_by_class_name('r-bztko3')
-            #             arr_clickable = [elem.get_attribute('data-testid')
-            #                         for elem in clickable]
-            #             for x in arr_clickable:
-            #                 if(x == 'like'):
-            #                     print('liked...')
-            #                     #bot.find_element_by_class_name('css-18t94o4 css-1dbjc4n r-1777fci r-11cpok1 r-1ny4l3l r-bztko3 r-lrvibr').click()
-                    time.sleep(10)
-                except Exception as ex:
-                    time.sleep(60)
-            
+                if(link != None):
+                    bot.get(link)
+                    print(link + ' visiting...')
+                    try:
+                        clickable = bot.find_elements_by_class_name('r-bztko3')
+                        arr_clickable = [elem.get_attribute('data-testid')
+                                    for elem in clickable]
+                        for x in arr_clickable:
+                            if(x == 'like'):
+                                print('liked...')
+                                #bot.find_element_by_class_name('css-18t94o4 css-1dbjc4n r-1777fci r-11cpok1 r-1ny4l3l r-bztko3 r-lrvibr').click()
+                        time.sleep(5)
+                    except Exception as ex:
+                        time.sleep(60)
+
+
             
                       
 
@@ -102,9 +116,6 @@ class TwitterBot:
 
 
 user = TwitterBot('username', 'password')
-#user.login()
+user.login()
 user.like_tweet('automation')
 #user.like_tweet('helloworld')
-
-
-# css-1dbjc4n r-1loqt21 r-1udh08x r-utggzx r-1wqkr8a
